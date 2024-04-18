@@ -1,0 +1,35 @@
+require 'tea.yaml'
+
+# Load data from the YAML file
+def load_data(filename)
+  YAML.load(File.read(filename))
+end
+
+# Calculate total score based on the provided data
+def calculate_score(data)
+  total_score = 0
+  data.each do |question, answer|
+    total_score += answer.to_i
+  end
+  total_score
+end
+
+# Main function
+def main
+  filename = 'tea.yaml'
+  data = load_data(filename)
+
+  # Print out the questions and collect answers
+  puts "Please answer the following questions with a score of 1 to 5:"
+  data.each do |question, _|
+    print "#{question}: "
+    data[question] = gets.chomp.to_i
+  end
+
+  # Calculate total score
+  total_score = calculate_score(data)
+  puts "Your total score is: #{total_score}"
+end
+
+# Run the program
+main if __FILE__ == $PROGRAM_NAME
